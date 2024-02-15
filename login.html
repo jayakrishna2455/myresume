@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Authentication with OTP Demo</title>
+    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+         button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .otp-verification {
+            display: none;
+        }
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <form id="signupForm">
+        <h2>Sign Up</h2>
+        <input type="email" id="signupEmail" placeholder="Email" autocomplete="username">
+        <input type="password" id="signupPassword" placeholder="Password" autocomplete="new-password">
+        <button type="button" id="verifyEmailButton" onclick="verifyBro()">1st Verify Email</button>
+        <button type="button" id="verifyEmails" onclick="userEmail()" disabled>2nd Verify Email</button>
+        <button type="button" id="enterPhoneNumberButton" onclick="enterPhoneNumber()" disabled>Enter Phone Number</button>
+        <div id="recaptcha-container"></div>
+        <h2>Verify Phone Number</h2>
+        <input type="text" id="phoneOTP" placeholder="Enter OTP sent to your phone">
+        <button type="button" id="verifyPhoneOTPButton" onclick="signUpAfterPhoneVerification()">Verify Phone OTP</button>
+        <button type="button" id="signUpButton" onclick="signUp()" disabled>Sign Up</button>
+    </form>
+
+    <div id="emailVerification" class="otp-verification">
+        <h2>Verify Email</h2>
+        <input type="text" id="emailOTP" placeholder="Enter OTP sent to your email">
+        <button type="button" id="verifyEmailOTPButton" onclick="verifyEmail()">Verify Email OTP</button>
+    </div>
+
+    <!--<div id="phoneVerification" class="otp-verification">
+        <h2>Verify Phone Number</h2>
+        <input type="text" id="phoneOTP" placeholder="Enter OTP sent to your phone">
+        <button type="button" id="verifyPhoneOTPButton" onclick="signUpAfterPhoneVerification()">Verify Phone OTP</button>
+    </div> -->
+</body>
+
+</html>

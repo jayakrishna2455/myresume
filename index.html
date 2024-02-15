@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            text-align: center;
+            padding-top: 50px;
+            overflow: hidden; /* To hide scrollbars caused by the moving GIFs */
+        }
+
+        form {
+            max-width: 300px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        #password {
+            width: calc(100% - 40px);
+        }
+
+        h2 {
+            color: #007bff;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+            margin-top: 20px;
+        }
+
+        label {
+            color: #007bff;
+        }
+
+        .eye-icon {
+            position: absolute;
+            top: 50%;
+            right: 5px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .google-signin-button {
+            width: 100%;
+            background-color: #4285F4;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .h5-divider {
+            display: flex;
+            align-items: center;
+            color: #007bff;
+            margin: 20px 0;
+        }
+
+        .h5-divider::before,
+        .h5-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid #007bff;
+            margin: 0 10px;
+        }
+
+        .h5-text {
+            flex: 0 0 auto;
+            padding: 0 10px;
+        }
+
+        .moving-gif {
+            position: absolute;
+            top: 80%;
+            transform: translateY(-50%);
+            animation: moveLeftToRight 10s linear infinite;
+        }
+        .moving-gifs {
+            position: absolute;
+            top: 85%;
+            transform: translateY(-50%);
+            animation: moveLeftToRight 10s linear infinite;
+        }
+        .moving-gifss {
+            position: absolute;
+            top: 75%;
+            transform: translateY(-50%);
+            animation: moveLeftToRight 10s linear infinite;
+        }
+
+
+        @keyframes moveLeftToRight {
+            0% { left: -100px; }
+            100% { left: calc(100% + 100px); }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Moving GIFs -->
+    <img class="moving-gifss" src="https://i.pinimg.com/originals/cc/da/83/ccda8381c1db3cf9678f90d520ca41cd.gif" alt="Dog" style="animation-delay: 6s;">
+    <img class="moving-gif" src="https://www.chiquipedia.com/images/gifs-gatos-ninos.gif" alt="Cat" style="animation-delay: 3s;">
+    <img class="moving-gifs" src="https://th.bing.com/th/id/R.a5bf8a7946c3710e6200ad6426f3b270?rik=DmR8Dgfvy1gsVQ&riu=http%3a%2f%2ffc07.deviantart.net%2ffs71%2ff%2f2010%2f232%2fb%2f5%2fTest_by_Ludolik.gif&ehk=520kEkPD9WnYa%2fzExK%2bUtN5iwXw78ioG%2b1cAmnGxCcA%3d&risl=&pid=ImgRaw&r=0" alt="Rat" style="animation-delay: 1s;">
+
+     <form id="loginForm">
+        <h2>Login</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password" class="password-container">Password:
+            <input type="password" id="password" name="password" required>
+            <span class="eye-icon" onclick="togglePassword()">👁️</span>
+        </label>
+        <button type="button" onclick="login()">Login</button>
+        <div class="h5-divider">
+            <span class="h5-text">or</span>
+        </div>
+
+        <button class="google-signin-button" onclick="signInWithGoogle()">Sign in with Google</button>
+    
+    </form>
+
+
+    <a class="game-link" href="node.html">Click here to play the sample game</a>
+
+    <a href="feedback.html" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); color: #fff;">Give
+        Feedback</a>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

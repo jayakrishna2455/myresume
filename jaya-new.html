@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email and Phone Verification</title>
+
+    <!-- Include the SMTPJS library for email verification -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+
+    <!-- Include the Firebase scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+
+    <style>
+        body {
+            text-align: center;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            width: fit-content;
+            margin: auto;
+        }
+
+        input {
+            padding: 0.6rem;
+        }
+
+        .otp-verify {
+            display: none;
+        }
+
+        .btn {
+            padding: 0.5rem 0.8rem;
+            background-color: violet;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Email and Phone Verification</h1>
+    <div class="form">
+        <!-- Email Verification -->
+        <input type="email" id="email" placeholder="Enter Email...">
+        <button onclick="sendEmailVerification()" class="btn">Send Email Verification</button>
+
+        <!-- Phone Verification -->
+        <div class="otp-verify">
+            <input type="tel" id="phoneNumber" placeholder="Enter Phone Number...">
+            <button onclick="sendSMSVerification()" class="btn">Send SMS Verification</button>
+        </div>
+
+        <!-- Sign-up Button -->
+        <button onclick="signUp()" class="btn" id="signUpButton" style="display: none;">Sign Up</button>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCkV3t8D9id4AH9p-GLfLHys-cPUDtzhnA",
+            authDomain: "jayas-1db92.firebaseapp.com",
+            projectId: "jayas-1db92",
+            storageBucket: "jayas-1db92.appspot.com",
+            messagingSenderId: "695257723268",
+            appId: "1:695257723268:web:3cf02d01db5dca110bedd1",
+            measurementId: "G-KZNBP5PPCQ"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        function sendEmailVerification() {
+            const email = document.getElementById('email').value;
+
+            // Generating random number as OTP;
+            let otpValue = Math.floor(Math.random() * 10000);
+
+            let emailBody = `
+                <h1>Please Verify Your Email</h1>
+                <h2>Your OTP is:</h2>${otpValue}
+            `;
+
+            Email.send({
+                SecureToken: "eed3d52b-da60-480d-b83f-f2cc63f052c6",
+                To: email,
+                From: "jayakrishnayadav24@gmail.com",
+                Subject: "Email Verification",
+                Body: emailBody
+            }).then(message => {
+                if (message === "OK") {
+                    alert("Email verification code sent to your email.");
+                    document.querySelector('.otp-verify').style.display = 'block';
+                    document.getElementById('signUpButton').style.display = 'block';
+                }
+            });
+        }
+
+        function sendSMSVerification() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const appVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+
+            // Send SMS verification code to the provided phone number
+            auth.signInWithPhoneNumber(phoneNumber, appVerifier)
+                .then((confirmationResult) => {
+                    const code = window.prompt('Enter the verification code sent to your phone:');
+                    return confirmationResult.confirm(code);
+                })
+                .then(() => {
+                    alert('Phone number verified!');
+                })
+                .catch((error) => {
+                    console.error('Error during phone verification:', error.message);
+                });
+        }
+
+        function signUp() {
+            // Add your sign-up logic here
+            alert('Sign Up Successful! Redirecting to resume.html');
+            window.location.href = 'resume.html';
+        }
+    </script>
+</body>
+
+</html>
+

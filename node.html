@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spaceship Shooter Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #000;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const spaceship = {
+            x: canvas.width / 2,
+            y: canvas.height - 50,
+            width: 50,
+            height: 50,
+            color: '#00F',
+            speed: 5
+        };
+
+        const bullets = [];
+        const balls = [];
+        let score = 0;
+
+        function drawSpaceship() {
+            ctx.fillStyle = spaceship.color;
+            ctx.fillRect(spaceship.x - spaceship.width / 2, spaceship.y - spaceship.height / 2, spaceship.width, spaceship.height);
+        }
+
+        function drawBullets() {
+            ctx.fillStyle = '#F00';
+            bullets.forEach(bullet => {
+                ctx.fillRect(bullet.x - 2, bullet.y - 10, 4, 10);
+            });
+        }
+
+        function drawBalls() {
+            ctx.fillStyle = '#0F0';
+            balls.forEach(ball => {
+                ctx.beginPath();
+                ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.closePath();
+            });
+        }
+
+        function drawScore() {
+            ctx.fillStyle = '#FFF';
+            ctx.font = '24px Arial';
+            ctx.fillText(`Score: ${score}`, 10, 30);
+        }
+
+        function update() {
+            // Update spaceship
+            if (keys.left) spaceship.x -= spaceship.speed;
+            if (keys.right) spaceship.x += spaceship.speed;
+            if (keys.up) spaceship.y -= spaceship.speed;
+            if (keys.down) spaceship.y += spaceship.speed;
+
+            spaceship.x = Math.max(spaceship.width / 2, Math.min(canvas.width - spaceship.width / 2, spaceship.x));
+            spaceship.y = Math.max(spaceship.height / 2, Math.min(canvas.height - spaceship.height / 2, spaceship.y));
+
+            // Update bullets
+            bullets.forEach(bullet => {
+                bullet.y -= 10;
+
+                // If spaceship is moving upwards, make bullets go in the opposite direction
+                const bulletDirection = keys.up ? -1 : keys.down ? 1 : 0;
+                bullet.y -= 10 * bulletDirection;
+            });
+
+            // Update balls
+            balls.forEach(ball => {
+                ball.y += 5;
+                if (ball.y > canvas.height + ball.radius) {
+                    ball.y = -ball.radius;
+                    ball.x = Math.random() * canvas.width;
+                }
+
+                bullets.forEach(bullet => {
+                    const dx = bullet.x - ball.x;
+                    const dy = bullet.y - ball.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < ball.radius + 5) {
+                        // Bullet hit the ball
+                        score += 10;
+                        ball.y = -ball.radius;
+                        ball.x = Math.random() * canvas.width;
+                    }
+                });
+            });
+        }
+
+        function draw() {
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw spaceship
+            drawSpaceship();
+
+            // Draw bullets
+            drawBullets();
+
+            // Draw balls
+            drawBalls();
+
+            // Draw score
+            drawScore();
+        }
+
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        const keys = {
+            left: false,
+            right: false,
+            up: false,
+            down: false
+        };
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') keys.left = true;
+            if (e.key === 'ArrowRight') keys.right = true;
+            if (e.key === 'ArrowUp') keys.up = true;
+            if (e.key === 'ArrowDown') keys.down = true;
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'ArrowLeft') keys.left = false;
+            if (e.key === 'ArrowRight') keys.right = false;
+            if (e.key === 'ArrowUp') keys.up = false;
+            if (e.key === 'ArrowDown') keys.down = false;
+        });
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            spaceship.y = canvas.height - 50;
+        });
+
+        canvas.addEventListener('click', () => {
+            fireBullet();
+        });
+
+        // Touch control
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        canvas.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            fireBullet(); // Fire a bullet when touch starts
+        });
+
+        canvas.addEventListener('touchmove', (e) => {
+            const touchX = e.touches[0].clientX;
+            const touchY = e.touches[0].clientY;
+
+            const deltaX = touchX - touchStartX;
+            const deltaY = touchY - touchStartY;
+
+            if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                // Horizontal movement
+                if (deltaX > 10) {
+                    keys.right = true;
+                    keys.left = false;
+                } else if (deltaX < -10) {
+                    keys.left = true;
+                    keys.right = false;
+                } else {
+                    keys.left = false;
+                    keys.right = false;
+                }
+            } else {
+                // Vertical movement
+                if (deltaY > 10) {
+                    keys.down = true;
+                    keys.up = false;
+                } else if (deltaY < -10) {
+                    keys.up = true;
+                    keys.down = false;
+                } else {
+                    keys.up = false;
+                    keys.down = false;
+                }
+            }
+        });
+
+        canvas.addEventListener('touchend', () => {
+            keys.left = false;
+            keys.right = false;
+            keys.up = false;
+            keys.down = false;
+        });
+
+        function fireBullet() {
+            bullets.push({ x: spaceship.x, y: spaceship.y });
+        }
+
+        // Initialize balls
+        for (let i = 0; i < 5; i++) {
+            balls.push({
+                x: Math.random() * canvas.width,
+                y: -Math.random() * 500,
+                radius: 20
+            });
+        }
+
+        gameLoop();
+    </script>
+</body>
+
+</html>
+
