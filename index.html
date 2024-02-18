@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
         body {
@@ -122,6 +123,21 @@
             transform: translateY(-50%);
             animation: moveLeftToRight 10s linear infinite;
         }
+        @media only screen and (max-width: 600px) {
+        body {
+            padding-top: 20px; /* Adjust spacing for mobile */
+        }
+
+        form {
+            max-width: 80%; /* Adjust form width for mobile */
+        }
+
+        .moving-gif,
+        .moving-gifs,
+        .moving-gifss {
+            display: none; /* Hide moving GIFs on mobile */
+        }
+    }
 
 
         @keyframes moveLeftToRight {
