@@ -66,6 +66,32 @@ const firebaseConfig = {
                 console.error('Error getting user data from Firestore:', error.message);
             });
         }
+
+        function displayUserDetails(uid) {
+            const userDetailsContainer = document.getElementById('userDetails');
+
+            // Reference to the users collection in Firestore
+            const usersCollection = firestore.collection('jayakrishna');
+
+            // Get user document from Firestore
+            usersCollection.doc(uid).get().then((doc) => {
+                if (doc.exists) {
+                    // User document exists, display user details
+                    const userData = doc.data();
+                    userDetailsContainer.innerHTML = `
+                        <p>Display Name: ${userData.displayName}</p>
+                        <p>Email: ${userData.email}</p>
+                        <p>Sign-in Count: ${userData.signInCount}</p>
+                        <p>Sign-in Time: ${userData.signInTime.toDate()}</p>
+                        <!-- Add more fields as needed -->
+                    `;
+                } else {
+                    console.log("User document not found");
+                }
+            }).catch((error) => {
+                console.error('Error getting user data from Firestore:', error.message);
+            });
+        }
         
         
         function login() {
