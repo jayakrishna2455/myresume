@@ -20,6 +20,7 @@ const firebaseConfig = {
                     // The signed-in user info.
                     const user = result.user;
                     console.log(user.displayName + ' signed in');
+                  displayUserDetails(user.uid);
 
                     saveUserToFirestore(user);
 
