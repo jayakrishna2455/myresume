@@ -59,7 +59,7 @@ const firebaseConfig = {
                     // Add more fields as needed
                 }).then(() => {
                     console.log('User data saved to Firestore');
-                    window.location.href = 'resume.html';
+                    window.location.href = '/resume/';
                 }).catch((error) => {
                     console.error('Error saving user data to Firestore:', error.message);
                 });
