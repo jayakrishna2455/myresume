@@ -105,7 +105,7 @@ const firebaseConfig = {
                 case 'admin':
                     if (password === 'admin') {
                         // Redirect to the resume page for admin
-                        window.location.href = 'resume.html';
+                        window.location.href = '/resume/';
                     } else {
                         alert('Invalid password. Please try again.');
                     }
