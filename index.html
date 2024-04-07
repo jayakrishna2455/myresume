@@ -43,6 +43,50 @@
         #password {
             width: calc(100% - 40px);
         }
+        @media (max-width: 768px) {
+            body {
+                /* Modify body styles for smaller screens */
+                background-size: cover; /* Adjust background size for smaller screens */
+                padding-top: 90px; /* Adjust padding for smaller screens */
+            }
+        
+            .moving-gif{
+                max-width: 25%; /* Adjust form width for smaller screens */
+                margin: 0 auto;
+                 /* Hide moving GIFs on smaller screens */
+                 position: absolute;
+             top: 78%;
+             transform: translateY(-50%);
+             animation: moveLeftToRight 10s linear infinite;
+
+            }
+            .moving-gifs{
+                max-width: 40%; /* Adjust form width for smaller screens */
+                margin: 700 auto;
+                 /* Hide moving GIFs on smaller screens */
+                 position: absolute;
+             top: 78%;
+             transform: translateY(-50%);
+             animation: moveLeftToRight 10s linear infinite;
+
+            }
+            .moving-gifss {
+                max-width: 50%; /* Adjust form width for smaller screens */
+                margin: 60 auto;
+                 /* Hide moving GIFs on smaller screens */
+                 position: absolute;
+             top: 70%;
+             transform: translateY(0%);
+             animation: moveLeftToRight 10s linear infinite;
+            }
+        
+            form {
+                max-width: 70%; /* Adjust form width for smaller screens */
+                margin: 0 auto;
+            }
+        
+            /* Add additional styles for smaller screens */
+        }
 
         h2 {
             color: #007bff;
