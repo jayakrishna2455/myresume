@@ -78,11 +78,11 @@
                 <li>user: Manages user accounts</li>
             </ul>
         </section>
-        <section id="roles">
-            <h2>Roles</h2>
-            <p>Roles are a way to organize and reuse Ansible code. They allow you to encapsulate tasks, handlers, variables, and other files into reusable units, making your playbooks more modular and maintainable.</p>
-            <p>Here's an example directory structure for an Ansible role:</p>
-            <pre><code>
+       <section id="roles">
+    <h2>Roles</h2>
+    <p>Roles are a way to organize and reuse Ansible code. They allow you to encapsulate tasks, handlers, variables, and other files into reusable units, making your playbooks more modular and maintainable.</p>
+    <p>Here's an example directory structure for an Ansible role:</p>
+    <pre><code>
 my_role/
 ├── defaults/
 │   └── main.yml
@@ -96,76 +96,69 @@ my_role/
 ├── meta/
 │   └── main.yml
 └── README.md
-            </code></pre>
-            <div class="container">
-        <h1>Ansible Role File Structure</h1>
+    </code></pre>
+    <div class="container">
+        <h3>Ansible Role File Structure</h3>
         <div class="directory">
-            <p>
-            - my_role/: Represents the main directory of the Ansible role.
-</p>
-            <!-- Defaults directory -->
-            <div class="subdirectory">
-                <p>- defaults/: Directory containing default variables for the role.</p>
-                <ul>
-                    <li>- main.yml: File containing default variables. These variables are used if no other value is provided.</li>
-                </ul>
-            </div>
-            <!-- Tasks directory -->
-            <div class="subdirectory">
-                <p>- tasks/: Directory containing main tasks for the role.
-</p>
-                <ul>
-                    <li> - main.yml: File containing main tasks. These tasks define the actions the role will perform.
-</li>
-                </ul>
-            </div>
-            <!-- Handlers directory -->
-            <div class="subdirectory">
-                <p>- handlers/: Directory containing handlers triggered by tasks.</p>
-                <ul>
-                    <li> - main.yml: File containing handlers. Handlers are tasks that are triggered by other tasks, typically to restart services or perform other actions.
-</li>
-                </ul>
-            </div>
-            <!-- Templates directory -->
-            <div class="subdirectory">
-                <p>- templates/: Directory containing Jinja2 templates for generating configuration files.
-</p>
-                <p>Jinja2 templates for generating configuration files. These templates allow you to generate configuration files dynamically, based on variables or conditions.
-</p>
-            </div>
-            <!-- Files directory -->
-            <div class="subdirectory">
-                <p>- files/: Directory containing files to be copied to managed nodes.
-</p>
-                <p> - These files are copied to the managed nodes as-is, without modification.
-</p>
-            </div>
-            <!-- Vars directory -->
-            <div class="subdirectory">
-                <p>- vars/: Directory containing role-specific variables.
-</p>
-                <ul>
-                    <li>- main.yml: File containing role-specific variables. These variables are specific to the role and can be used to customize its behavior.
-</li>
-                </ul>
-            </div>
-            <!-- Meta directory -->
-            <div class="subdirectory">
-                <p>- meta/: Directory containing metadata including dependencies.
-</p>
-                <ul>
-                    <li>- main.yml: File containing metadata, such as dependencies. This file specifies information about the role, such as its dependencies on other roles.
-</li>
-                </ul>
-            </div>
-            <!-- README file -->
-            <div class="readme">
-                <p>READ.ME Documentation for the role.
-  - This file contains documentation for the role, including information on how to use it, its purpose, variables, and any other relevant details. It's typically written in Markdown format for easy readability.</p>
-            </div>
+            <ul>
+                <li>
+                    <strong>my_role/</strong>: Represents the main directory of the Ansible role.
+                    <ul>
+                        <li>
+                            <strong>defaults/</strong>: Directory containing default variables for the role.
+                            <ul>
+                                <li>- <em>main.yml</em>: File containing default variables. These variables are used if no other value is provided.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>tasks/</strong>: Directory containing main tasks for the role.
+                            <ul>
+                                <li>- <em>main.yml</em>: File containing main tasks. These tasks define the actions the role will perform.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>handlers/</strong>: Directory containing handlers triggered by tasks.
+                            <ul>
+                                <li>- <em>main.yml</em>: File containing handlers. Handlers are tasks that are triggered by other tasks, typically to restart services or perform other actions.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>templates/</strong>: Directory containing Jinja2 templates for generating configuration files.
+                            <ul>
+                                <li>Jinja2 templates for generating configuration files. These templates allow you to generate configuration files dynamically, based on variables or conditions.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>files/</strong>: Directory containing files to be copied to managed nodes.
+                            <ul>
+                                <li>These files are copied to the managed nodes as-is, without modification.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>vars/</strong>: Directory containing role-specific variables.
+                            <ul>
+                                <li>- <em>main.yml</em>: File containing role-specific variables. These variables are specific to the role and can be used to customize its behavior.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>meta/</strong>: Directory containing metadata including dependencies.
+                            <ul>
+                                <li>- <em>main.yml</em>: File containing metadata, such as dependencies. This file specifies information about the role, such as its dependencies on other roles.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>README.md</strong>: Documentation for the role.
+                            <ul>
+                                <li>This file contains documentation for the role, including information on how to use it, its purpose, variables, and any other relevant details. It's typically written in Markdown format for easy readability.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
+
+
 
         </section>
         <section id="best-practices">
