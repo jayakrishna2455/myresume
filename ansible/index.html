@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansible Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Ansible Documentation</h1>
+    </header>
+    <nav>
+        <ul>
+             <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#playbooks">Playbooks</a></li>
+
+
+            <li><a href="#modules">Modules</a></li>
+            <li><a href="#roles">Roles</a></li>
+            <li><a href="#best-practices">Best Practices</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>Ansible is an open-source automation tool that simplifies IT orchestration, configuration management, and application deployment. It enables you to automate repetitive tasks, manage complex infrastructures, and streamline workflows.</p>
+        </section>
+        <section id="installation">
+            <h2>Installation</h2>
+            <p>To install Ansible, you can use your system's package manager or install it via Python's package manager, pip.</p>
+            <pre><code>$ sudo apt-get install ansible</code></pre>
+        </section>
+        <section id="getting-started">
+            <h2>Getting Started</h2>
+            <p>Once installed, you can start using Ansible to manage your infrastructure. Begin by configuring Ansible and setting up your inventory file to define the hosts you want to manage.</p>
+            <pre><code>$ sudo nano /etc/ansible/hosts</code></pre>
+        </section>
+        <section id="playbooks">
+            <h2>Playbooks</h2>
+            <p>Playbooks are Ansible's configuration, deployment, and orchestration language. They allow you to define your infrastructure as code, making it easier to manage and replicate configurations across multiple hosts.</p>
+            <p>Below is an example playbook to install and configure Apache web server:</p>
+            <pre><code>
+---
+- name: Install and configure Apache
+  hosts: web_servers
+  tasks:
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+      become: yes
+
+    - name: Start Apache service
+      service:
+        name: apache2
+        state: started
+      become: yes
+
+    - name: Enable Apache service
+      service:
+        name: apache2
+        enabled: yes
+      become: yes
+            </code></pre>
+        </section>
+        <section id="modules">
+            <h2>Modules</h2>
+            <p>Modules are reusable, standalone scripts that perform specific tasks on managed nodes. Ansible provides a wide range of modules to automate various operations such as package management, file manipulation, user management, and more.</p>
+            <p>Commonly used modules include:</p>
+            <ul>
+                <li>apt: Manages packages on Debian/Ubuntu systems</li>
+                <li>yum: Manages packages on Red Hat/CentOS systems</li>
+                <li>copy: Copies files to remote hosts</li>
+                <li>file: Manages files and directories</li>
+                <li>user: Manages user accounts</li>
+            </ul>
+        </section>
+        <section id="roles">
+            <h2>Roles</h2>
+            <p>Roles are a way to organize and reuse Ansible code. They allow you to encapsulate tasks, handlers, variables, and other files into reusable units, making your playbooks more modular and maintainable.</p>
+            <p>Here's an example directory structure for an Ansible role:</p>
+            <pre><code>
+my_role/
+├── defaults/
+│   └── main.yml
+├── tasks/
+│   └── main.yml
+├── handlers/
+│   └── main.yml
+├── templates/
+├── files/
+├── vars/
+├── meta/
+│   └── main.yml
+└── README.md
+            </code></pre>
+        </section>
+        <section id="best-practices">
+            <h2>Best Practices</h2>
+            <p>Follow these best practices to ensure efficient and maintainable Ansible code:</p>
+            <ul>
+                <li>Use roles to organize your playbooks and keep them modular.</li>
+                <li>Store sensitive information such as passwords and API keys in Ansible vault.</li>
+                <li>Use tags to selectively run tasks within playbooks.</li>
+                <li>Test your playbooks in a staging environment before deploying to production.</li>
+                <li>Document your playbooks and roles for future reference.</li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Your Company</p>
+    </footer>
+</body>
+</html>
