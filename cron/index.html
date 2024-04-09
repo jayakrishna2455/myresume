@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cron Expression Interpreter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px 0;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cron Expression Interpreter</h1>
+        <label for="cronInput">Enter Cron Expression:</label>
+        <input type="text" id="cronInput" placeholder="* * * * *">
+        <button onclick="calculateNextExecution()">Calculate</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateNextExecution() {
+            var cronExpression = document.getElementById('cronInput').value;
+
+            try {
+                var currentDate = new Date();
+                var fields = cronExpression.split(' ');
+
+                var minute = parseCronField(fields[0], 0, 59, currentDate.getMinutes());
+                var hour = parseCronField(fields[1], 0, 23, currentDate.getHours());
+                var dayOfMonth = parseCronField(fields[2], 1, 31, currentDate.getDate());
+                var month = parseCronField(fields[3], 0, 11, currentDate.getMonth());
+                var dayOfWeek = parseCronField(fields[4], 0, 6, currentDate.getDay());
+
+                var nextDate = new Date(currentDate.getFullYear(), month, dayOfMonth, hour, minute);
+
+                // Find the next valid date based on day of week
+                while (nextDate.getDay() !== dayOfWeek) {
+                    nextDate.setDate(nextDate.getDate() + 1);
+                }
+
+                var formattedDate = nextDate.toLocaleString();
+
+                document.getElementById('result').innerText = 'Next execution time: ' + formattedDate;
+                document.getElementById('result').classList.remove('error');
+            } catch (error) {
+                document.getElementById('result').innerText = 'Error: ' + error.message;
+                document.getElementById('result').classList.add('error');
+            }
+        }
+
+        function parseCronField(field, min, max, current) {
+            var value = parseInt(field);
+
+            if (field === '*' || value === current) {
+                return current;
+            } else if (value >= min && value <= max) {
+                return value;
+            } else {
+                throw new Error('Invalid cron expression');
+            }
+        }
+    </script>
+</body>
+</html>
