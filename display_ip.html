@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display IP</title>
+</head>
+<body>
+
+<h1>Visitor's Public IP Address</h1>
+
+<script>
+    // Function to get URL parameters
+    function getParameterByName(name) {
+        const url = new URL(window.location.href);
+        return url.searchParams.get(name);
+    }
+
+    // Get IP address from URL parameter
+    const ipAddress = getParameterByName('ip');
+    document.write(`<p>Visitor's IP Address: ${ipAddress}</p>`);
+</script>
+
+</body>
+</html>
