@@ -119,9 +119,28 @@
                     const location = childSnapshot.val().location;
                     if (location && location.latitude && location.longitude) {
                         showMap(`map_${ip}`, location);
+                    } else {
+                        // Fetch location information if not available
+                        fetchLocation(ip, (newLocation) => {
+                            database.ref('ips').child(childSnapshot.key).update({ location: newLocation });
+                            showMap(`map_${ip}`, newLocation);
+                        });
                     }
                 });
             });
+        }
+
+        function fetchLocation(ip, callback) {
+            fetch(`https://ipapi.co/${ip}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    const location = `${data.city}, ${data.region}, ${data.country_name}`;
+                    callback(location);
+                })
+                .catch(error => {
+                    console.error('Error fetching location:', error);
+                    callback('Location not available');
+                });
         }
 
         function showMap(mapId, location) {
