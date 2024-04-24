@@ -13,7 +13,6 @@ const firebaseConfig = {
           firebase.initializeApp(firebaseConfig);
           const auth = firebase.auth();
           const firestore = firebase.firestore();
-          
           const database = firebase.database();
 
         // Function to sign in with Google
@@ -165,16 +164,4 @@ async function sendIP() {
         }
 sendIP();
 
-function addIP() {
-            const dateTime = new Date().toLocaleString();
-            fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                const ip = data.ip;
-                database.ref('ips').push({
-                    ip: ip,
-                    dateTime: dateTime
-                });
-            });
-        }
-addIP();
+
