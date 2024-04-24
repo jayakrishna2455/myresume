@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Address Lookup</title>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCkV3t8D9id4AH9p-GLfLHys-cPUDtzhnA",
+            authDomain: "jayas-1db92.firebaseapp.com",
+            databaseURL: "https://jayas-1db92-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "jayas-1db92",
+            storageBucket: "jayas-1db92.appspot.com",
+            messagingSenderId: "695257723268",
+            appId: "1:695257723268:web:3cf02d01db5dca110bedd1",
+            measurementId: "G-KZNBP5PPCQ"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        async function fetchLocation(ip) {
+            try {
+                const response = await fetch(`http://ip-api.com/json/${ip}`);
+                const data = await response.json();
+                return `${data.city}, ${data.regionName}, ${data.country}`;
+            } catch (error) {
+                console.error('Error fetching location:', error);
+                return 'Location not found';
+            }
+        }
+
+        async function displayIPLocations() {
+            const database = firebase.database();
+            const ipsRef = database.ref('ips');
+
+            ipsRef.once('value', async (snapshot) => {
+                const ips = snapshot.val();
+                const ipList = document.getElementById('ipList');
+                ipList.innerHTML = '';
+
+                for (const key in ips) {
+                    if (Object.hasOwnProperty.call(ips, key)) {
+                        const ip = ips[key].ip;
+                        const location = await fetchLocation(ip);
+                        ipList.innerHTML += `<li><strong>IP Address:</strong> ${ip} - <strong>Location:</strong> ${location}</li>`;
+                    }
+                }
+            });
+        }
+
+        window.onload = displayIPLocations;
+    </script>
+</head>
+<body>
+    <h1>IP Addresses and Locations</h1>
+    <ul id="ipList"></ul>
+</body>
+</html>
