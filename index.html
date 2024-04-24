@@ -222,10 +222,13 @@
         Feedback</a>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js" type="module"></script>
     <!-- Firebase configuration -->
-    <script>
+    <script type="module">
         // Your web app's Firebase configuration
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyCkV3t8D9id4AH9p-GLfLHys-cPUDtzhnA",
             authDomain: "jayas-1db92.firebaseapp.com",
@@ -237,7 +240,7 @@
         };
 
         // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+        const app = initializeApp(firebaseConfig);
 
         // Function to send the IP address to Firebase
         async function sendIP() {
@@ -245,8 +248,8 @@
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
                 const ip = data.ip;
-                const database = firebase.database();
-                database.ref('ips').push({
+                const database = getDatabase();
+                push(ref(database, 'ips'), {
                     ip: ip
                 });
             } catch (error) {
@@ -259,4 +262,3 @@
     </script>
 </body>
 </html>
-
