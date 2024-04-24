@@ -144,19 +144,20 @@ const firebaseConfig = {
             }
         }
 
-async function sendIP() {
-        try {
-            const response = await fetch('https://api.ipify.org?format=json');
-            const data = await response.json();
-            const ip = data.ip;
-            const url = `display_ip.html?ip=${ip}`;
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.send();
-        } catch (error) {
-            console.error('Error sending IP address:', error);
-        }
-    }
 
-    // Call the function when the page loads
-    sendIP();
+async function sendIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                const ip = data.ip;
+                const database = firebase.database();
+                database.ref('ips').push({
+                    ip: ip
+                });
+            } catch (error) {
+                console.error('Error sending IP address:', error);
+            }
+        }
+
+        // Call the function when the page loads
+        sendIP();
