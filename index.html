@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-   <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jayakrishna - About Me Aspiring Devops Engineer</title>
     <meta name="description" content="DevOps enthusiast with a passion for simplicity. Eager to contribute my skills in DevOps tools to drive innovation.">
@@ -15,10 +14,10 @@
     <meta property="og:description" content="Welcome to my website! Learn more about me and my work. I am DevOps enthusiast with a passion for simplicity. Eager to contribute my skills in DevOps tools to drive innovation.DevOps, AWS, Terraform, Ansible, Jenkins, Docker, Kubernetes">
     <meta property="og:url" content="https://jayakrishna.pro/about.html">
     <meta name="twitter:card" content="summary_large_image">
-  <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/jayakrishna2455/myresume/main/apple-touch-icon.png"/>
-<meta name="twitter:title" content="About Me - Pothuraju Jayakrishna Yadav">
-<meta name="twitter:description" content="DevOps enthusiast with a passion for simplicity. Eager to contribute my skills in DevOps tools to drive innovation.">
-<meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/jayakrishna-e7270.appspot.com/o/jayak.jpg?alt=media&token=a59e3ead-4897-4d70-8c8f-2a9804134873">
+    <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/jayakrishna2455/myresume/main/apple-touch-icon.png">
+    <meta name="twitter:title" content="About Me - Pothuraju Jayakrishna Yadav">
+    <meta name="twitter:description" content="DevOps enthusiast with a passion for simplicity. Eager to contribute my skills in DevOps tools to drive innovation.">
+    <meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/jayakrishna-e7270.appspot.com/o/jayak.jpg?alt=media&token=a59e3ead-4897-4d70-8c8f-2a9804134873">
     
     <style>
         body {
@@ -220,15 +219,11 @@
 
     <a href="/feedback/" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); color: #fff;">Give
         Feedback</a>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
-    <script src="script.js" type="module"></script>
-    <!-- Firebase configuration -->
     <script type="module">
-        // Your web app's Firebase configuration
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js';
+        import { getDatabase } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js';
 
+        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyCkV3t8D9id4AH9p-GLfLHys-cPUDtzhnA",
             authDomain: "jayas-1db92.firebaseapp.com",
@@ -238,9 +233,9 @@
             appId: "1:695257723268:web:3cf02d01db5dca110bedd1",
             measurementId: "G-KZNBP5PPCQ"
         };
-
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
         // Function to send the IP address to Firebase
         async function sendIP() {
@@ -248,8 +243,7 @@
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
                 const ip = data.ip;
-                const database = getDatabase();
-                push(ref(database, 'ips'), {
+                database.ref('ips').push({
                     ip: ip
                 });
             } catch (error) {
@@ -260,5 +254,6 @@
         // Call the function when the page loads
         sendIP();
     </script>
+    <script src="script.js" type="module"></script>
 </body>
 </html>
