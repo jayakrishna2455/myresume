@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get IP Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #ipInfo {
+            margin-top: 20px;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Enter IP Address</h1>
+    <input type="text" id="ipInput">
+    <button onclick="getIPInfo()">Get Info</button>
+
+    <div id="ipInfo"></div>
+
+</div>
+
+<script>
+    async function getIPInfo() {
+        const ipInput = document.getElementById('ipInput').value;
+        const response = await fetch(`https://ipapi.co/${ipInput}/json/`);
+        const data = await response.json();
+        const ipInfoDiv = document.getElementById('ipInfo');
+        ipInfoDiv.innerHTML = `
+            <h2>Location</h2>
+            <p>City: ${data.city}</p>
+            <p>Region: ${data.region}</p>
+            <p>Postal code: ${data.postal}</p>
+            <p>Country: ${data.country_name} (${data.country})</p>
+            <p>Continent: ${data.continent_name} (${data.continent_code})</p>
+            <p>Coordinates: ${data.latitude} (lat) / ${data.longitude} (long)</p>
+            <p>Time: ${data.timezone}</p>
+            <h2>Network</h2>
+            <p>IP address: ${data.ip}</p>
+            <p>Hostname: ${data.hostname}</p>
+            <p>Provider: ${data.org}</p>
+            <p>ASN: ${data.asn}</p>
+        `;
+    }
+</script>
+
+</body>
+</html>
