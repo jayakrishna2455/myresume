@@ -134,7 +134,10 @@
             fetch(`https://ipapi.co/${ip}/json/`)
                 .then(response => response.json())
                 .then(data => {
-                    const location = `${data.city}, ${data.region}, ${data.country_name}`;
+                    const location = {
+                        latitude: parseFloat(data.latitude),
+                        longitude: parseFloat(data.longitude)
+                    };
                     callback(location);
                 })
                 .catch(error => {
