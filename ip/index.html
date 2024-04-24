@@ -87,18 +87,7 @@
        firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        function addIP() {
-            const dateTime = new Date().toLocaleString();
-            fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                const ip = data.ip;
-                database.ref('ips').push({
-                    ip: ip,
-                    dateTime: dateTime
-                });
-            });
-        }
+        
 
         function displayIPs() {
             const ipTable = document.getElementById('ipTable');
@@ -119,7 +108,7 @@
         displayIPs();
 
         // Call the function to add IP address when the page loads
-        addIP();
+        
     </script>
 </body>
 </html>
