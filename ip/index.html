@@ -58,6 +58,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Date and Time</th>
                     <th>IP Address</th>
                 </tr>
             </thead>
@@ -72,7 +73,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
     <script>
         const firebaseConfig = {
-            apiKey: "AIzaSyCkV3t8D9id4AH9p-GLfLHys-cPUDtzhnA",
+            apiKey: "YOUR_API_KEY",
             authDomain: "jayas-1db92.firebaseapp.com",
             databaseURL: "https://jayas-1db92-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "jayas-1db92",
@@ -94,7 +95,8 @@
             database.ref('ips').once('value', (snapshot) => {
                 snapshot.forEach((childSnapshot) => {
                     const ip = childSnapshot.val().ip;
-                    html += `<tr><td>${ip}</td></tr>`;
+                    const dateTime = new Date().toLocaleString();
+                    html += `<tr><td>${dateTime}</td><td>${ip}</td></tr>`;
                 });
                 ipTable.innerHTML = html;
             });
