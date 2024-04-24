@@ -1,8 +1,9 @@
-// script.js
+// Firebase Auth
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js';
+// Firestore
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js';
 
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
-
+// Firebase initialization
 const auth = getAuth();
 const firestore = getFirestore();
 
@@ -23,14 +24,14 @@ function signInWithGoogle() {
 
 function saveUserToFirestore(user) {
     // Reference to the users collection in Firestore
-    const usersCollection = doc(firestore, 'jayakrishna', user.uid);
+    const usersCollection = firestore.collection('jayakrishna');
 
     // Get the current sign-in count and sign-in time from Firestore and update them
-    getDoc(usersCollection).then((doc) => {
+    usersCollection.doc(user.uid).get().then((doc) => {
         let signInCount = 1; // Default value if user is signing in for the first time
         let signInTime = new Date(); // Timestamp when the user signs in
 
-        if (doc.exists()) {
+        if (doc.exists) {
             // If the user document already exists, get the current signInCount and signInTime
             const userData = doc.data();
             signInCount = userData.signInCount + 1 || 1; // Increment signInCount or set to 1 if undefined
@@ -38,7 +39,7 @@ function saveUserToFirestore(user) {
         }
 
         // Set the user data in Firestore with the updated signInCount and signInTime
-        setDoc(usersCollection, {
+        usersCollection.doc(user.uid).set({
             displayName: user.displayName,
             email: user.email,
             photoURL: user.photoURL,
