@@ -7,6 +7,8 @@ import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.0.2/firebase-
 const auth = getAuth();
 const firestore = getFirestore();
 
+
+
 // Function to sign in with Google
 function signInWithGoogle() {
     const provider = new GoogleAuthProvider();
