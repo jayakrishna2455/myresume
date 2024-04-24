@@ -21,9 +21,9 @@
 
         async function fetchLocation(ip) {
             try {
-                const response = await fetch(`https://ip-api.com/json/${ip}`);
+                const response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=YOUR_API_KEY&ip=${ip}`);
                 const data = await response.json();
-                return `${data.city}, ${data.regionName}, ${data.country}`;
+                return `${data.city}, ${data.region}, ${data.country_name}`;
             } catch (error) {
                 console.error('Error fetching location:', error);
                 return 'Location not found';
@@ -48,6 +48,7 @@
                 }
             });
         }
+
 
         window.onload = displayIPLocations;
     </script>
