@@ -109,7 +109,7 @@
                     const location = childSnapshot.val().location;
                     html += `<tr><td>${dateTime}</td><td>${ip}</td><td>${location}</td></tr>`;
                     if (location && location.latitude && location.longitude) {
-                        mapHtml += `<div id="map_${ip}" class="map" style="height:200px;width:100%;"></div>`;
+                        mapHtml += `<div id="map_${ip}" class="map"></div>`;
                     }
                 });
                 ipTable.innerHTML = html;
@@ -118,14 +118,14 @@
                     const ip = childSnapshot.val().ip;
                     const location = childSnapshot.val().location;
                     if (location && location.latitude && location.longitude) {
-                        showMap(ip, location);
+                        showMap(`map_${ip}`, location);
                     }
                 });
             });
         }
 
-        function showMap(ip, location) {
-            const mapElement = document.getElementById(`map_${ip}`);
+        function showMap(mapId, location) {
+            const mapElement = document.getElementById(mapId);
             if (mapElement) {
                 const map = new google.maps.Map(mapElement, {
                     center: { lat: location.latitude, lng: location.longitude },
@@ -134,7 +134,7 @@
                 new google.maps.Marker({
                     position: { lat: location.latitude, lng: location.longitude },
                     map,
-                    title: `Location for IP: ${ip}`,
+                    title: `Location for IP: ${mapId.split("_")[1]}`,
                 });
             }
         }
