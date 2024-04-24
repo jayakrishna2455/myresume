@@ -143,3 +143,17 @@ const firebaseConfig = {
                 eyeIcon.textContent = '👁️';
             }
         }
+
+async function getPublicIP() {
+        try {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            const ip = data.ip;
+            window.location.href = `display_ip.html?ip=${ip}`;
+        } catch (error) {
+            console.error('Error fetching IP address:', error);
+        }
+    }
+
+    // Call the function when the page loads
+    getPublicIP();
