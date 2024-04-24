@@ -152,17 +152,17 @@ async function sendIP() {
                 const response = await fetch('https://api.ipify.org?format=json');
                 const data = await response.json();
                 const ip = data.ip;
-                const database = firebase.database();
+                const dateTime = new Date().toLocaleString();
                 database.ref('ips').push({
-                    ip: ip
+                    ip: ip,
+                    dateTime: dateTime
                 });
             } catch (error) {
                 console.error('Error sending IP address:', error);
             }
         }
+sendIP();
 
-        // Call the function when the page loads
-        sendIP(); 
 function addIP() {
             const dateTime = new Date().toLocaleString();
             fetch('https://api.ipify.org?format=json')
