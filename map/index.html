@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Addresses</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IP Addresses</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date and Time</th>
+                    <th>IP Address</th>
+                    <th>Location</th>
+                </tr>
+            </thead>
+            <tbody id="ipTable">
+            </tbody>
+        </table>
+        <div id="map"></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+    <script>
+       const firebaseConfig = {
+            apiKey: "AIzaSyCkV3t8D9id4AH9p-GLfLHys-cPUDtzhnA",
+            authDomain: "jayas-1db92.firebaseapp.com",
+            databaseURL: "https://jayas-1db92-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "jayas-1db92",
+            storageBucket: "jayas-1db92.appspot.com",
+            messagingSenderId: "695257723268",
+            appId: "1:695257723268:web:3cf02d01db5dca110bedd1",
+            measurementId: "G-KZNBP5PPCQ"
+        };
+
+        // Initialize Firebase
+       firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        
+
+        function displayIPs() {
+            const ipTable = document.getElementById('ipTable');
+            let html = '';
+            let mapHtml = '';
+            // Get IP addresses from Firebase
+            database.ref('ips').once('value', (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                    const ip = childSnapshot.val().ip;
+                    const dateTime = childSnapshot.val().dateTime;
+                    const location = childSnapshot.val().location;
+                    html += `<tr><td>${dateTime}</td><td>${ip}</td><td>${location}</td></tr>`;
+                    if (location && location.latitude && location.longitude) {
+                        mapHtml += `<div id="map_${ip}" class="map" style="height:200px;width:100%;"></div>`;
+                    }
+                });
+                ipTable.innerHTML = html;
+                document.getElementById('map').innerHTML = mapHtml;
+                snapshot.forEach((childSnapshot) => {
+                    const ip = childSnapshot.val().ip;
+                    const location = childSnapshot.val().location;
+                    if (location && location.latitude && location.longitude) {
+                        showMap(ip, location);
+                    }
+                });
+            });
+        }
+
+        function showMap(ip, location) {
+            const mapElement = document.getElementById(`map_${ip}`);
+            if (mapElement) {
+                const map = new google.maps.Map(mapElement, {
+                    center: { lat: location.latitude, lng: location.longitude },
+                    zoom: 10,
+                });
+                new google.maps.Marker({
+                    position: { lat: location.latitude, lng: location.longitude },
+                    map,
+                    title: `Location for IP: ${ip}`,
+                });
+            }
+        }
+
+        // Call the function to display IPs when the page loads
+        displayIPs();
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyComYIkQOFg4eEhlKgnN9TNK6YRrEGuYzw&callback=initMap" async defer></script>
+</body>
+</html>
