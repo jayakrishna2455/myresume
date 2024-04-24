@@ -95,9 +95,7 @@
        firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
-        
-
-       function displayIPs() {
+      function displayIPs() {
             const ipTable = document.getElementById('ipTable');
             let html = '';
             let mapHtml = '';
@@ -107,9 +105,9 @@
                     const ip = childSnapshot.val().ip;
                     const dateTime = childSnapshot.val().dateTime;
                     const location = childSnapshot.val().location;
-                    html += <tr><td>${dateTime}</td><td>${ip}</td><td>${location}</td></tr>;
+                    html += `<tr><td>${dateTime}</td><td>${ip}</td><td>${location}</td></tr>`;
                     if (location && location.latitude && location.longitude) {
-                        mapHtml += <div id="map_${ip}" class="map"></div>;
+                        mapHtml += `<div id="map_${ip}" class="map"></div>`;
                     }
                 });
                 ipTable.innerHTML = html;
@@ -118,12 +116,12 @@
                     const ip = childSnapshot.val().ip;
                     const location = childSnapshot.val().location;
                     if (location && location.latitude && location.longitude) {
-                        showMap(map_${ip}, location);
+                        showMap(`map_${ip}`, location);
                     } else {
                         // Fetch location information if not available
                         fetchLocation(ip, (newLocation) => {
                             database.ref('ips').child(childSnapshot.key).update({ location: newLocation });
-                            showMap(map_${ip}, newLocation);
+                            showMap(`map_${ip}`, newLocation);
                         });
                     }
                 });
@@ -131,10 +129,10 @@
         }
 
         function fetchLocation(ip, callback) {
-            fetch(https://ipapi.co/${ip}/json/)
+            fetch(`https://ipapi.co/${ip}/json/`)
                 .then(response => response.json())
                 .then(data => {
-                    const location = ${data.city}, ${data.region}, ${data.country_name};
+                    const location = `${data.city}, ${data.region}, ${data.country_name}`;
                     callback(location);
                 })
                 .catch(error => {
@@ -153,14 +151,16 @@
                 new google.maps.Marker({
                     position: { lat: location.latitude, lng: location.longitude },
                     map,
-                    title: Location for IP: ${mapId.split("_")[1]},
+                    title: `Location for IP: ${mapId.split("_")[1]}`,
                 });
             }
         }
 
         function initMap() {
             displayIPs();
-        }
+        }  
+
+      
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyComYIkQOFg4eEhlKgnN9TNK6YRrEGuYzw&callback=initMap" async defer></script>
 </body>
