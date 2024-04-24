@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jayakrishna Yadav - Portfolio</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-vk4FfRFgFG3hK2ip4X7zcjJpXy3FmZf0nVbU9+EELxCklt/1R7Qw1Pf2KR3I9Jd6" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <!-- Custom CSS -->
+  <style>
+    /* Custom CSS */
+
+    /* Hero Header */
+    .bgimage {
+      background-image: url('images/hero_bg.jpg');
+      background-size: cover;
+      height: 100vh;
+    }
+
+    .hero-text {
+      text-align: center;
+      color: white;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .hero_title {
+      font-size: 4rem;
+    }
+
+    .hero_desc {
+      font-size: 1.5rem;
+    }
+
+    /* About Section */
+    .imageAboutPage {
+      width: 100%;
+      border-radius: 50%;
+    }
+
+    /* Skills Section */
+    #skills ul {
+      list-style-type: none;
+    }
+
+    /* Projects Section */
+    #projects .card {
+      transition: transform 0.5s;
+    }
+
+    #projects .card:hover {
+      transform: scale(1.05);
+    }
+
+    /* Certifications Section */
+    #certifications .card {
+      background-color: #f8f9fa;
+    }
+
+    /* Contact Section */
+    #contact .fa-2x {
+      color: #333;
+      margin: 0 10px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg fixed-top navbarScroll navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">Jayakrishna Yadav</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#skills">Skills</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#projects">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#certifications">Certifications</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <section class="bgimage" id="home">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hero-text">
+          <h2 class="hero_title">Jayakrishna Yadav</h2>
+          <p class="hero_desc">Aspiring DevOps Engineer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container mt-5 pt-5">
+      <h1 class="text-center">About Me</h1>
+      <div class="row mt-5">
+        <div class="col-lg-4">
+          <img src="images/profile_pic.jpg" class="imageAboutPage" alt="Profile Picture">
+        </div>
+        <div class="col-lg-8">
+          <p>DevOps enthusiast with a passion for simplicity. Eager to contribute my skills in DevOps tools to drive innovation. Seeking a role where I can grow and evolve, becoming a key asset for the organization's success.</p>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <ul>
+                <li>Name: Jayakrishna Yadav</li>
+                <li>Email: jayakrishnayadav24@gmail.com</li>
+                <li>Phone: +91 8978960371</li>
+                <li>LinkedIn: <a href="#">LinkedIn Profile</a></li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul>
+                <li>Location: Hyderabad, India</li>
+                <li>Email: jayakrishnayadav2455@gmail.com</li>
+                <li>Sign-in Count: 11</li>
+                <li>Sign-in Time: Tue Apr 23 2024 19:26:16 GMT+0530 (India Standard Time)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="bg-light">
+    <div class="container">
+      <h1 class="text-center mt-5">Skills</h1>
+      <div class="row mt-5">
+        <div class="col-lg-4">
+          <h3>Programming Languages:</h3>
+          <ul>
+            <li>Python</li>
+            <li>Bash</li>
+            <li>Java</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Linux:</h3>
+          <ul>
+            <li>Linux (Ubuntu, CentOS)</li>
+            <li>Shell scripting</li>
+            <li>Installed and configured Linux distributions</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Operating Systems:</h3>
+          <ul>
+            <li>Linux (Ubuntu, CentOS)</li>
+            <li>Windows</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Networking:</h3>
+          <ul>
+            <li>TCP/IP</li>
+            <li>DNS</li>
+            <li>Load Balancing</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Scripting:</h3>
+          <ul>
+            <li>Shell scripting</li>
+            <li>PowerShell</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Version Control:</h3>
+          <ul>
+            <li>Git</li>
+            <li>GitHub</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Infrastructure as Code:</h3>
+          <ul>
+            <li>Terraform</li>
+            <li>Cloud Formation</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Configuration Management:</h3>
+          <ul>
+            <li>Ansible</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Continuous Integration/Continuous Deployment:</h3>
+          <ul>
+            <li>Jenkins</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Monitoring:</h3>
+          <ul>
+            <li>Grafana & Prometheus</li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h3>Cloud Technologies:</h3>
+          <ul>
+            <li>Amazon Web Services (AWS)</li>
+            <li>Docker Compose</li>
+            <li>Kubernetes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects">
+    <div class="container mt-5">
+      <h1 class="text-center">Projects</h1>
+      <div class="row mt-5">
+        <div class="col-lg-4 mt-4">
+          <div class="card">
+            <img class="card-img-top" src="images/project1.jpg" alt="Project 1">
+            <div class="card-body">
+              <h4 class="card-title">Deployment of Three-Tier Application in AWS</h4>
+              <p class="card-text">Demo Video: <a href="#">Link</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="card">
+            <img class="card-img-top" src="images/project2.jpg" alt="Project 2">
+            <div class="card-body">
+              <h4 class="card-title">Static Website Hosting in AWS</h4>
+              <p class="card-text">Demo Video: <a href="#">Link</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="card">
+            <img class="card-img-top" src="images/project3.jpg" alt="Project 3">
+            <div class="card-body">
+              <h4 class="card-title">Jenkins CI/CD Automation of Doctor Appointment Application</h4>
+              <p class="card-text">Demo Video: <a href="#">Link</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="card">
+            <img class="card-img-top" src="images/project4.jpg" alt="Project 4">
+            <div class="card-body">
+              <h4 class="card-title">YouTube Clone Deployment using Jenkins CI/CD</h4>
+              <p class="card-text">Demo Video: <a href="#">Link</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="card">
+            <img class="card-img-top" src="images/project5.jpg" alt="Project 5">
+            <div class="card-body">
+              <h4 class="card-title">Netflix Clone Deployment using Jenkins CI/CD</h4>
+              <p class="card-text">Demo Video: <a href="#">Link</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="card">
+            <img class="card-img-top" src="images/project6.jpg" alt="Project 6">
+            <div class="card-body">
+              <h4 class="card-title">Automated installations and updates using Ansible</h4>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4">
+          <div class="card">
+            <img class="card-img-top" src="images/project7.jpg" alt="Project 7">
+            <div class="card-body">
+              <h4 class="card-title">Infrastructure Management using Terraform and Cloud Formation</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Section -->
+  <section id="certifications">
+    <div class="container mt-5">
+      <h1 class="text-center">Certifications</h1>
+      <div class="row mt-5">
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Fundamentals of Full stack Web Development</h4>
+              <p class="card-text">Certification: <a href="#">View here</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">AWS Certified Solution Architect - Associate</h4>
+              <p class="card-text">Certification: <a href="#">View here</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="bg-light">
+    <div class="container mt-5">
+      <h1 class="text-center">Contact Me</h1>
+      <div class="row mt-5">
+        <div class="col-lg-6">
+          <form action="" method="post">
+            <div class="mb-3">
+              <input type="text" class="form-control" placeholder="Name" name="name" required>
+            </div>
+            <div class="mb-3">
+              <input type="email" class="form-control" placeholder="Email" name="email" required>
+            </div>
+            <div class="mb-3">
+              <textarea class="form-control" placeholder="Message" rows="5" name="message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <h3>Contact Information</h3>
+          <p><i class="fas fa-map-marker-alt"></i> Hyderabad, India</p>
+          <p><i class="fas fa-envelope"></i> jayakrishnayadav24@gmail.com</p>
+          <p><i class="fas fa-phone"></i> +91 8978960371</p>
+          <div class="mt-4">
+            <a href="#"><i class="fab fa-linkedin fa-2x"></i></a>
+            <a href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
+            <a href="#"><i class="fab fa-facebook-square fa-2x"></i></a>
+            <a href="#"><i class="fab fa-instagram-square fa-2x"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="text-center mt-5">
+    <p>&copy; 2024 Jayakrishna Yadav. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js"></script>
+</body>
+</html>
