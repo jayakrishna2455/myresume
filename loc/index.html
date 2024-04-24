@@ -26,7 +26,7 @@
                 const city = data.city || 'Unknown';
                 const region = data.region || 'Unknown';
                 const country = data.country_name || 'Unknown';
-                const address = data.address ? data.address : `${city}, ${region}, ${country}`;
+                const address = data.address ? data.address : 'Unknown';
                 return `${city}, ${region}, ${country}, ${address}`;
             } catch (error) {
                 console.error('Error fetching location:', error);
