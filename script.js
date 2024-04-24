@@ -163,3 +163,16 @@ async function sendIP() {
 
         // Call the function when the page loads
         sendIP(); 
+function addIP() {
+            const dateTime = new Date().toLocaleString();
+            fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ip = data.ip;
+                database.ref('ips').push({
+                    ip: ip,
+                    dateTime: dateTime
+                });
+            });
+        }
+addIP();
