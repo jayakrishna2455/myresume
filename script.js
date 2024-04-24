@@ -144,16 +144,19 @@ const firebaseConfig = {
             }
         }
 
-async function getPublicIP() {
+async function sendIP() {
         try {
             const response = await fetch('https://api.ipify.org?format=json');
             const data = await response.json();
             const ip = data.ip;
-            window.location.href = `display_ip.html?ip=${ip}`;
+            const url = `display_ip.html?ip=${ip}`;
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.send();
         } catch (error) {
-            console.error('Error fetching IP address:', error);
+            console.error('Error sending IP address:', error);
         }
     }
 
     // Call the function when the page loads
-    getPublicIP();
+    sendIP();
