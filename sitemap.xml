@@ -21,5 +21,8 @@
     <url>
         <loc>https://jayakrishna.pro/cron</loc>
     </url>
+     <url>
+        <loc>https://jayakrishna.pro/robots.txt</loc>
+    </url>
     <!-- Add other URLs here -->
 </urlset>
