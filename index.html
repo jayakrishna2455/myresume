@@ -246,7 +246,18 @@
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
     
    
-        
+      <script>
+    function getIP(json) {
+        var ip = json.ip;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "save-ip.php?ip=" + ip, true); // Use your server URL
+        xhr.send();
+    }
+
+    var script = document.createElement('script');
+    script.src = 'https://api.ipify.org?format=jsonp&callback=getIP';
+    document.body.appendChild(script);
+   </script>  
         
 
 
