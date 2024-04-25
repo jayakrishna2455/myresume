@@ -15,29 +15,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta property="og:title" content="Jayakrishna ansible">
     <meta property="og:description" content="Welcome to my website! Learn more about me and my work. I am DevOps enthusiast with a passion for simplicity. Eager to contribute my skills in DevOps tools to drive innovation.DevOps, AWS, Terraform, Ansible, Jenkins, Docker, Kubernetes">
-    <meta property="og:url" content="https://jayakrishna.pro/about.html">
+    <meta property="og:url" content="https://jayakrishna.pro/ansible/index.html">
     <meta name="twitter:card" content="summary_large_image">
-  <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/jayakrishna2455/myresume/main/apple-touch-icon.png"/>
-<meta name="twitter:title" content="About Me - Pothuraju Jayakrishna Yadav">
-<meta name="twitter:description" content="DevOps enthusiast with a passion for simplicity. Eager to contribute my skills in DevOps tools to drive innovation.">
-<meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/jayakrishna-e7270.appspot.com/o/jayak.jpg?alt=media&token=a59e3ead-4897-4d70-8c8f-2a9804134873">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Pothuraju Jayakrishna Yadav",
-  "url": "https://jayakrishna.pro/",
-  "sameAs": [
-    "https://www.linkedin.com/in/pothuraju-jayakrishna-yadav-bb329a26b"
-  ]
-}
-</script>
-     <link rel="canonical" href="https://jayakrishna.pro/ansible/index.html">
+    <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/jayakrishna2455/myresume/main/apple-touch-icon.png"/>
+    <meta name="twitter:title" content="About Me - Pothuraju Jayakrishna Yadav">
+    <meta name="twitter:description" content="DevOps enthusiast with a passion for simplicity. Eager to contribute my skills in DevOps tools to drive innovation.">
+    <meta name="twitter:image" content="https://firebasestorage.googleapis.com/v0/b/jayakrishna-e7270.appspot.com/o/jayak.jpg?alt=media&token=a59e3ead-4897-4d70-8c8f-2a9804134873">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Pothuraju Jayakrishna Yadav",
+      "url": "https://jayakrishna.pro/",
+      "sameAs": [
+        "https://www.linkedin.com/in/pothuraju-jayakrishna-yadav-bb329a26b"
+      ]
+    }
+    </script>
+    <link rel="canonical" href="https://jayakrishna.pro/ansible/index.html">
     <link rel="canonical" href="https://jayakrishna.pro/">
 </head>
 <body>
     <header>
-        <h1>jayakrishna's Ansible Documentation  </h1>
+        <h1>jayakrishna's Ansible Documentation</h1>
+        <nav>
+            <ul>
+                <li><a href="https://jayakrishna.pro/terraform" rel="nofollow">Terraform</a></li>
+                <li><a href="https://jayakrishna.pro/ansible" rel="nofollow">Ansible</a></li>
+                <li><a href="https://jayakrishna.pro/cron" rel="nofollow">Cron</a></li>
+                <li><a href="https://jayakrishna.pro/ip/add" rel="nofollow">IP/Add</a></li>
+                <!-- Add other navigation links -->
+            </ul>
+        </nav>
     </header>
     <nav>
         <ul>
@@ -45,8 +54,6 @@
             <li><a href="#installation">Installation</a></li>
             <li><a href="#getting-started">Getting Started</a></li>
             <li><a href="#playbooks">Playbooks</a></li>
-
-
             <li><a href="#modules">Modules</a></li>
             <li><a href="#roles">Roles</a></li>
             <li><a href="#best-practices">Best Practices</a></li>
@@ -107,11 +114,11 @@
                 <li>user: Manages user accounts</li>
             </ul>
         </section>
-       <section id="roles">
-    <h2>Roles</h2>
-    <p>Roles are a way to organize and reuse Ansible code. They allow you to encapsulate tasks, handlers, variables, and other files into reusable units, making your playbooks more modular and maintainable.</p>
-    <p>Here's an example directory structure for an Ansible role:</p>
-    <pre><code>
+        <section id="roles">
+            <h2>Roles</h2>
+            <p>Roles are a way to organize and reuse Ansible code. They allow you to encapsulate tasks, handlers, variables, and other files into reusable units, making your playbooks more modular and maintainable.</p>
+            <p>Here's an example directory structure for an Ansible role:</p>
+            <pre><code>
 my_role/
 ├── defaults/
 │   └── main.yml
@@ -125,70 +132,67 @@ my_role/
 ├── meta/
 │   └── main.yml
 └── README.md
-    </code></pre>
-    <div class="container">
-        <h3>Ansible Role File Structure</h3>
-        <div class="directory">
-            <ul>
-                <li>
-                    <strong>my_role/</strong>: Represents the main directory of the Ansible role.
+            </code></pre>
+            <div class="container">
+                <h3>Ansible Role File Structure</h3>
+                <div class="directory">
                     <ul>
                         <li>
-                            <strong>defaults/</strong>: Directory containing default variables for the role.
+                            <strong>my_role/</strong>: Represents the main directory of the Ansible role.
                             <ul>
-                                <li>- <em>main.yml</em>: File containing default variables. These variables are used if no other value is provided.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>tasks/</strong>: Directory containing main tasks for the role.
-                            <ul>
-                                <li>- <em>main.yml</em>: File containing main tasks. These tasks define the actions the role will perform.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>handlers/</strong>: Directory containing handlers triggered by tasks.
-                            <ul>
-                                <li>- <em>main.yml</em>: File containing handlers. Handlers are tasks that are triggered by other tasks, typically to restart services or perform other actions.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>templates/</strong>: Directory containing Jinja2 templates for generating configuration files.
-                            <ul>
-                                <li>Jinja2 templates for generating configuration files. These templates allow you to generate configuration files dynamically, based on variables or conditions.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>files/</strong>: Directory containing files to be copied to managed nodes.
-                            <ul>
-                                <li>These files are copied to the managed nodes as-is, without modification.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>vars/</strong>: Directory containing role-specific variables.
-                            <ul>
-                                <li>- <em>main.yml</em>: File containing role-specific variables. These variables are specific to the role and can be used to customize its behavior.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>meta/</strong>: Directory containing metadata including dependencies.
-                            <ul>
-                                <li>- <em>main.yml</em>: File containing metadata, such as dependencies. This file specifies information about the role, such as its dependencies on other roles.</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <strong>README.md</strong>: Documentation for the role.
-                            <ul>
-                                <li>This file contains documentation for the role, including information on how to use it, its purpose, variables, and any other relevant details. It's typically written in Markdown format for easy readability.</li>
+                                <li>
+                                    <strong>defaults/</strong>: Directory containing default variables for the role.
+                                    <ul>
+                                        <li>- <em>main.yml</em>: File containing default variables. These variables are used if no other value is provided.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>tasks/</strong>: Directory containing main tasks for the role.
+                                    <ul>
+                                        <li>- <em>main.yml</em>: File containing main tasks. These tasks define the actions the role will perform.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>handlers/</strong>: Directory containing handlers triggered by tasks.
+                                    <ul>
+                                        <li>- <em>main.yml</em>: File containing handlers. Handlers are tasks that are triggered by other tasks, typically to restart services or perform other actions.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>templates/</strong>: Directory containing Jinja2 templates for generating configuration files.
+                                    <ul>
+                                        <li>Jinja2 templates for generating configuration files. These templates allow you to generate configuration files dynamically, based on variables or conditions.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>files/</strong>: Directory containing files to be copied to managed nodes.
+                                    <ul>
+                                        <li>These files are copied to the managed nodes as-is, without modification.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>vars/</strong>: Directory containing role-specific variables.
+                                    <ul>
+                                        <li>- <em>main.yml</em>: File containing role-specific variables. These variables are specific to the role and can be used to customize its behavior.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>meta/</strong>: Directory containing metadata including dependencies.
+                                    <ul>
+                                        <li>- <em>main.yml</em>: File containing metadata, such as dependencies. This file specifies information about the role, such as its dependencies on other roles.</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>README.md</strong>: Documentation for the role.
+                                    <ul>
+                                        <li>This file contains documentation for the role, including information on how to use it, its purpose, variables, and any other relevant details. It's typically written in Markdown format for easy readability.</li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                     </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-
+                </div>
+            </div>
         </section>
         <section id="best-practices">
             <h2>Best Practices</h2>
@@ -202,6 +206,5 @@ my_role/
             </ul>
         </section>
     </main>
-   
 </body>
 </html>
