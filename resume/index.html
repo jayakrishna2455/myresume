@@ -228,7 +228,9 @@
                 console.log('User is not signed in. Redirecting to login page.');
                 if (confirm("You are not signed in. Click OK and sign in.")) {
                     window.location.href = 'https://jayakrishna.pro/';  // Change this to your login page
-                }  // Change this to your login page
+                } else {
+                window.location.href = './';  // Change this to your login page
+            }  // Change this to your login page
             }
         });
     </script>
