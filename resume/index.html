@@ -94,24 +94,6 @@
 </head>
 <body>
     
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
-    <script src="script.js"></script>
-    <script>
-        // Check if the user is authenticated
-        firebase.auth().onAuthStateChanged(function(user) {
-            if (user) {
-                // User is signed in, allow access to resume.html content
-                console.log('User is signed in:', user.displayName);
-                displayUserDetails(user.uid);
-            } else {
-                // User is not signed in, redirect to login page or any other page
-                console.log('User is not signed in. Redirecting to login page.');
-                window.location.href = './';  // Change this to your login page
-            }
-        });
-    </script>
     <header>
         
         <p style="font-size: 18px;">Aspiring DevOps Engineer</p>
@@ -229,5 +211,24 @@
             <li>AWS Certified Solution Architect - Associate -<a href="https://drive.google.com/file/d/1ispkpjll7ofrYaTgW3SBWY8FIRWBWP1O/view?usp=drivesdk" target="_blank">view here</li>
         </ul>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Check if the user is authenticated
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                // User is signed in, allow access to resume.html content
+                console.log('User is signed in:', user.displayName);
+                displayUserDetails(user.uid);
+            } else {
+                // User is not signed in, redirect to login page or any other page
+                console.log('User is not signed in. Redirecting to login page.');
+                window.location.href = './';  // Change this to your login page
+            }
+        });
+    </script>
 </body>
 </html>
