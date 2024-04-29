@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        #header {
+            background-color: #ff0000;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        #search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #search {
+            width: 50%;
+            padding: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        #categories {
+            float: left;
+            width: 20%;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            color: #333;
+            height: 100vh;
+            overflow-y: auto;
+            border-right: 1px solid #ddd;
+        }
+
+        #categories h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        #categories ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+        }
+
+        #categories ul li {
+            margin-bottom: 10px;
+        }
+
+        #categories ul li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            padding: 10px;
+            border-radius: 3px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #categories ul li a:hover {
+            background-color: #ff0000;
+            color: white;
+        }
+
+        #categories ul li a.active {
+            background-color: #ff0000;
+            color: white;
+        }
+
+        #videos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .video {
+            margin: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            background-color: #fff;
+            width: 300px;
+            border: 1px solid #ddd;
+        }
+
+        .video:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .video iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+
+        .video h3 {
+            padding: 10px;
+            margin: 0;
+            background-color: #ff0000;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>YouTube Clone</h1>
+    </div>
+    <div id="search-container">
+        <input type="text" class="search-bar" id="search" placeholder="Search for videos or playlists">
+    </div>
+    <div id="categories">
+        <h3>Categories</h3>
+        <ul>
+            
+            <li><a href="#" onclick="searchCategory('Node.js')" class="active">Node.js</a></li>
+            <li><a href="#" onclick="searchCategory('React')">React</a></li>
+            <li><a href="#" onclick="searchCategory('HTML and CSS')">HTML and CSS</a></li>
+            <li><a href="#" onclick="searchCategory('Java')">Java</a></li>
+            <li><a href="#" onclick="searchCategory('Python')">Python</a></li>
+            <li><a href="#" onclick="searchCategory('Funny')">Funny</a></li>
+            <li><a href="#" onclick="searchCategory('Interview')">Interview</a></li>
+        </ul>
+    </div>
+    <div id="videos"></div>
+
+    <script>
+        const API_KEY = '${{ secrets.API_KEY }}';
+
+        document.getElementById('search').addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                const query = this.value;
+                searchVideos(query);
+            }
+        });
+
+        function searchCategory(category) {
+            document.querySelectorAll('#categories ul li a').forEach(a => a.classList.remove('active'));
+            fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${category}&part=snippet&type=video&order=date&maxResults=10`)
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data.items);
+            })
+            .catch(error => console.error('Error fetching category videos:', error));
+        }
+
+        function searchVideos(query) {
+            fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${query}&part=snippet&type=video,playlist&maxResults=10`)
+            .then(response => response.json())
+            .then(data => {
+                displayResults(data.items);
+            })
+            .catch(error => console.error('Error fetching search results:', error));
+        }
+
+        function displayResults(items) {
+            const videosDiv = document.getElementById('videos');
+            videosDiv.innerHTML = '';
+
+            items.forEach(item => {
+                const videoDiv = document.createElement('div');
+                videoDiv.classList.add('video');
+
+                if (item.id.kind === 'youtube#video') {
+                    const videoId = item.id.videoId;
+                    const videoTitle = item.snippet.title;
+                    const videoElement = document.createElement('div');
+                    videoElement.innerHTML = `
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+                        <h3>${videoTitle}</h3>
+                    `;
+                    videoDiv.appendChild(videoElement);
+                } else if (item.id.kind === 'youtube#playlist') {
+                    const playlistId = item.id.playlistId;
+                    const playlistTitle = item.snippet.title;
+                    const playlistElement = document.createElement('div');
+                    playlistElement.innerHTML = `
+                        <p>Playlist: <a href="https://www.youtube.com/playlist?list=${playlistId}" target="_blank">${playlistTitle}</a></p>
+                    `;
+                    videoDiv.appendChild(playlistElement);
+                }
+
+                videosDiv.appendChild(videoDiv);
+            });
+        }
+
+        // Automatically load new videos when page loads
+        searchCategory('Node.js');
+    </script>
+</body>
+</html>
