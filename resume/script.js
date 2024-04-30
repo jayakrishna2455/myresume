@@ -143,3 +143,66 @@ const firebaseConfig = {
                 eyeIcon.textContent = '👁️';
             }
         }
+
+// Function to send IP address and calculate user's duration
+async function sendIP() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        const ip = data.ip;
+        const dateTime = new Date().toLocaleString();
+        const userKey = localStorage.getItem('userKey');
+
+        // Get the user's current visit or create a new user entry
+        let userRef;
+        let isNewUser = false;
+        if (!userKey) {
+            isNewUser = true;
+            userRef = database.ref('users').push();
+            localStorage.setItem('userKey', userRef.key);
+            userRef.set({
+                firstVisit: dateTime,
+                lastVisit: dateTime,
+                duration: 0
+            });
+        } else {
+            userRef = database.ref('users').child(userKey);
+        }
+
+        // Get the last visit time
+        userRef.once('value', function(snapshot) {
+            const lastVisit = snapshot.val().lastVisit;
+            const lastVisitTime = new Date(lastVisit).getTime();
+            const duration = Math.round((new Date().getTime() - lastVisitTime) / 1000);
+            // Update the user's last visit time and duration
+            userRef.update({
+                lastVisit: dateTime,
+                duration: snapshot.val().duration + duration
+            });
+
+            // Push IP address to ips node
+            database.ref('ips').push({
+                ip: ip,
+                dateTime: dateTime
+            });
+        });
+    } catch (error) {
+        console.error('Error sending IP address:', error);
+    }
+}
+
+// Call sendIP function when the page loads
+sendIP();
+
+// Listen for when the user leaves the page
+window.addEventListener('beforeunload', function () {
+    const dateTime = new Date().toLocaleString();
+    const userKey = localStorage.getItem('userKey');
+    if (userKey) {
+        // Update user's last visit time
+        database.ref('users/' + userKey).update({
+            lastVisit: dateTime
+        });
+    }
+});
+
