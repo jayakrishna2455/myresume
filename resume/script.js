@@ -12,6 +12,7 @@ const firebaseConfig = {
           firebase.initializeApp(firebaseConfig);
           const auth = firebase.auth();
           const firestore = firebase.firestore();
+          const database = firebase.database();
 
         // Function to sign in with Google
         function signInWithGoogle() {
@@ -159,4 +160,4 @@ async function sendIP() {
                 console.error('Error sending IP address:', error);
             }
         }
-sendIP(database);
+sendIP();
