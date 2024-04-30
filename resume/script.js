@@ -159,4 +159,4 @@ async function sendIP() {
                 console.error('Error sending IP address:', error);
             }
         }
-sendIP();
+sendIP(database);
