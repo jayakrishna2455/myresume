@@ -153,103 +153,12 @@ async function sendIP() {
                 const data = await response.json();
                 const ip = data.ip;
                 const dateTime = new Date().toLocaleString();
-                const userKey = localStorage.getItem('userKey');
-
-                // Get the user's current visit or create a new user entry
-                let userRef;
-                let isNewUser = false;
-                if (!userKey) {
-                    isNewUser = true;
-                    userRef = database.ref('users').push();
-                    localStorage.setItem('userKey', userRef.key);
-                    userRef.set({
-                        firstVisit: dateTime,
-                        lastVisit: dateTime,
-                        duration: 0
-                    });
-                } else {
-                    userRef = database.ref('users').child(userKey);
-                }
-
-                // Get the last visit time
-                userRef.once('value', function(snapshot) {
-                    const lastVisit = snapshot.val().lastVisit;
-                    const lastVisitTime = new Date(lastVisit).getTime();
-                    const duration = Math.round((new Date().getTime() - lastVisitTime) / 1000);
-                    // Update the user's last visit time and duration
-                    userRef.update({
-                        lastVisit: dateTime,
-                        duration: snapshot.val().duration + duration
-                    });
-
-                    // Push IP address to ips node
-                    database.ref('ips').push({
-                        ip: ip,
-                        firstVisit: dateTime,
-                        lastVisit: dateTime
-                    });
+                database.ref('ips').push({
+                    ip: ip,
+                    dateTime: dateTime
                 });
             } catch (error) {
                 console.error('Error sending IP address:', error);
             }
         }
-
-        // Call sendIP function when the page loads
-        sendIP();
-
-        // Listen for when the user leaves the page
-        window.addEventListener('beforeunload', function () {
-            const dateTime = new Date().toLocaleString();
-            const userKey = localStorage.getItem('userKey');
-            if (userKey) {
-                // Update user's last visit time
-                database.ref('users/' + userKey).update({
-                    lastVisit: dateTime
-                });
-            }
-        });
-
-        // Function to format duration
-        function formatDuration(seconds) {
-            const hours = Math.floor(seconds / 3600);
-            seconds %= 3600;
-            const minutes = Math.floor(seconds / 60);
-            const remainingSeconds = seconds % 60;
-            return `${hours > 0 ? hours + ' hours ' : ''}${minutes} minutes ${remainingSeconds} seconds`;
-        }
-
-        // Function to fetch and display IP addresses and their duration
-        function fetchIPAddresses() {
-            const ipList = document.getElementById('ipList');
-            database.ref('ips').on('value', function(snapshot) {
-                ipList.innerHTML = ""; // Clear previous list
-                snapshot.forEach(function(childSnapshot) {
-                    const ip = childSnapshot.val().ip;
-                    const firstVisit = new Date(childSnapshot.val().firstVisit);
-                    const lastVisit = new Date(childSnapshot.val().lastVisit);
-                    const durationInSeconds = Math.round((lastVisit.getTime() - firstVisit.getTime()) / 1000); // Duration in seconds
-                    const duration = formatDuration(durationInSeconds);
-                    const li = document.createElement('li');
-                    li.innerText = "IP: " + ip + ", Duration: " + duration;
-                    ipList.appendChild(li);
-                });
-            });
-        }
-
-        // Function to fetch and display user duration
-        function fetchUserDuration() {
-            const userKey = localStorage.getItem('userKey');
-            if (userKey) {
-                const userRef = database.ref('users').child(userKey);
-                userRef.on('value', function(snapshot) {
-                    const duration = snapshot.val().duration;
-                    document.getElementById('duration').innerText = "Your current session duration: " + formatDuration(duration);
-                });
-            }
-        }
-
-        // Call fetchUserDuration and fetchIPAddresses functions when the page loads
-        fetchUserDuration();
-        fetchIPAddresses();
-
-
+sendIP();
