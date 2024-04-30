@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Duration Tracker</title>
+</head>
+<body>
+    <h1>User Duration Tracker</h1>
+    <div id="duration"></div>
+
+    <!-- Include Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
+
+    <script>
+        // Initialize Firebase
+      const firebaseConfig = {
+         apiKey: "AIzaSyCkV3t8D9id4AH9p-GLfLHys-cPUDtzhnA",
+         authDomain: "jayas-1db92.firebaseapp.com",
+         projectId: "jayas-1db92",
+         storageBucket: "jayas-1db92.appspot.com",
+         messagingSenderId: "695257723268",
+         appId: "1:695257723268:web:3cf02d01db5dca110bedd1",
+        measurementId: "G-KZNBP5PPCQ"
+      };
+        firebase.initializeApp(firebaseConfig);
+
+        // Get a reference to the database service
+        const database = firebase.database();
+
+        // Function to fetch and display user duration
+        function fetchUserDuration() {
+            const userKey = localStorage.getItem('userKey');
+            if (userKey) {
+                const userRef = database.ref('users').child(userKey);
+                userRef.once('value', function(snapshot) {
+                    const duration = snapshot.val().duration;
+                    document.getElementById('duration').innerText = "Your current session duration: " + duration + " seconds";
+                });
+            }
+        }
+
+        // Call fetchUserDuration function when the page loads
+        fetchUserDuration();
+    </script>
+</body>
+</html>
