@@ -1,0 +1,16 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
+  <head><meta charset="UTF-8"></head>
+  <body><table>
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>Session Number</th>
+          <th>Topics</th>
+          <th>Date</th>
+          <th>Day</th>
+        </tr>
+      </thead>
+      <tbody id="calendar-body">
+      </tbody>
+    </table></body>
+  </html>
