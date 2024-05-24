@@ -1,0 +1,142 @@
+Table of contents
+1. What Is Terraform? Why We Use Terraform?
+2. What Is IAC (Infrastructure As Code)?
+3. Terraform Installation Steps For Linux(Ubuntu):
+4. What Is a Resource?
+5. What Is A Provider?
+6. Some Important Terraform Commands :
+#trainwithshubham # 90DaysOf DevopsChallenge #devops/terraform
+
+1. What Is Terraform? Why We Use Terraform?
+HashiCorp Terraform is an open-source infrastructure as code (IaC) software tool that allows DevOps engineers to programmatically provision the physical resources an application requires to run.
+
+Terraform scripts are written in JSON-like configuration language known as ** Hashicorp Configuration Language(HCL).**HCL's simple syntax makes it easy for DevOps teams to provision and re-provision infrastructure across multiple clouds and on-premises data centers./
+
+Usage:
+
+Terraform is an IAC tool, used primarily by DevOps Teams to automate various infrastructure tasks.
+
+One of the main functions of Terraform is for public cloud provisioning on one of the major providers. Providing an IaC for services such as AWS and Azure, terraform enables the use of these public clouds via a provider.
+
+Terraform is responsible for multi-cloud deployments with the help of its providers simultaneously, unlike other IAC tools. The capability to deploy resources to multiple cloud providers is critical because engineers can utilize the same syntax without familiarizing themselves with multiple tools and technologies.
+
+Another usage of Terraform is deploying, managing, and orchestrating resources with custom cloud providers. A provider is a way in Terraform to wrap an existing API and convert it to the Terraform declarative syntax, and this can be done even if you’re not using AWS or another one of the major cloud services. Providers can also be written for internal use cases where you may desire to convert existing tools or APIs into Terraform.
+
+2. What Is IAC (Infrastructure As Code)?
+Infrastructure as Code (IaC) is the managing and provisioning of infrastructure through code instead of through manual processes.
+
+With IaC, configuration files are created that contain your infrastructure specifications, which makes it easier to edit and distribute configurations. It also ensures that you provide the same environment every time. Automating infrastructure provisioning with IaC means that developers don’t need to manually provision and manage servers, operating systems, storage, and other infrastructure components each time they develop or deploy an application.
+
+Common IAC tools are Ansible, Cloud Formation (Only For AWS), Terraform etc.
+
+🎯**Can We Use Ansible For Provisioning Purposes?**
+
+Like Terraform, Ansible also comes under the IAC tool.
+
+The answer is YES, you can provision your infrastructure with the help of the Ansible tool. But, Ansible is not a provisioning tool, it is mainly used for Configuration Management i.e. after provisioning your Infrastructure help of Terraform or any other provisioning tool, to configure your servers Ansible is used. So, it is highly recommended to use Ansible for Configuration Management purposes not for Provisioning your infrastructure as there are many drawbacks to using it as a Provisioning tool.
+
+3. Terraform Installation Steps For Linux(Ubuntu):
+Installed the gnupg, software-properties-common, and curl packages installed. You will use these packages to verify HashiCorp's GPG signature and install HashiCorp's Debian package repository.
+
+
+COPY
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+Install the HashiCorp GPG key.
+
+
+COPY
+wget -O- https://apt.releases.hashicorp.com/gpg | \
+gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+Verify the key's fingerprint.
+
+
+COPY
+gpg --no-default-keyring \
+--keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
+--fingerprint
+Add the official HashiCorp repository to your system.
+
+
+COPY
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
+Download the package information from HashiCorp
+
+
+COPY
+sudo apt update
+Install Terraform from the new repository.
+
+
+COPY
+sudo apt-get install terraform
+##Check Terraform Version
+terraform version
+##Output
+Terraform v1.5.0
+on linux_amd64
+4. What Is a Resource?
+resources are the most important part of Terraform. Resources are defined by resource blocks. A resource can define one or more infrastructure resource objects, such as VPCs, virtual machines, DNS records etc.
+
+Example:
+
+syntax: <block type> <label1> <label2>
+
+resource "aws_instance" "web_server" {
+ami = "ami-a1b2c3d4"
+instance_type = "t2.micro"
+}
+
+Resources are defined through a resource block. It is a simple example of aws-instance creation with two arguments ami and instance_type.
+
+In the label1 there should be a resource_type that you want to create and here it is aws_instance[here aws is the provider].
+
+label2 can be any local name you can give as per your choice[like,by which terraform will know your resource name in your local machine].
+
+It will create an ec2 instance.
+
+5. What Is A Provider?
+A provider in Terraform is a plugin that enables interaction with an API. This includes Cloud providers. The providers are specified in the Terraform configuration code. They tell Terraform which services it needs to interact with.
+
+There are hundreds of available providers that can be used with Terraform.
+
+resource "aws_instance" "web_server" {
+ami = "ami-a1b2c3d4"
+instance_type = "t2.micro"
+}
+
+In this example, AWS is the provider. To initialize a provider in terraform run the command terraform init.
+
+6. Some Important Terraform Commands :
+Terraform CLI commands are case-sensitive and all are written in lowercase mostly.
+
+Mostly used commands in Terraform are:
+
+terraform init: To prepare the working directory for use with Terraform, the terraform init command performs Backend Initialization, Child Module Installation, and Plugin Installation.
+
+terraform plan: Plan will generate an execution plan, showing you what actions will be taken without actually performing the planned actions.
+
+terraform apply: Create or update infrastructure depending on the configuration files. By default, a plan will be generated first and will need to be approved before it is applied.
+
+terraform validate: Validate the configuration files in your directory and do not access any remote state or services. terraform init should be run before this command.
+
+terraform fmt: Format your Terraform configuration files using the HCL language standard.
+
+terraform destroy: Destroy the infrastructure managed by Terraform.
+
+Thank You For Reading...
+
+
+2
+
+
+
+
+Subscribe to my newsletter
+Read articles from Devops directly inside your inbox. Subscribe to the newsletter, and don't miss out.
+
+
+
+
