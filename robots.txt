@@ -4,4 +4,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://jayakrishna.pro/sitemap.xml
+Sitemap: https://jayakrishna.cloud/sitemap.xml
