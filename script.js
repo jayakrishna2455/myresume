@@ -19,17 +19,7 @@ const firebaseConfig = {
         // Access the user's webcam
         
         
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices.getUserMedia({ video: true }).then(function(mediaStream) {
-                video.srcObject = mediaStream;
-                stream = mediaStream; // Save stream to stop it later
 
-                // Capture photo once webcam starts
-                video.addEventListener('loadeddata', capturePhoto);
-            }).catch(function(error) {
-                console.error("Error accessing webcam: ", error);
-            });
-        }
 
 
         // Function to sign in with Google
