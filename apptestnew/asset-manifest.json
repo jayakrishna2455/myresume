@@ -7,7 +7,7 @@
     "main.8c652953.js.map": "/Youtube-clone-app/static/js/main.8c652953.js.map"
   },
   "entrypoints": [
-    "static/css/main.7064deb2.css",
-    "static/js/main.8c652953.js"
+    "/Youtube-clone-app/static/css/main.7064deb2.css",
+    "/Youtube-clone-app/static/js/main.8c652953.js"
   ]
 }
