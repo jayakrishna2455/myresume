@@ -12,8 +12,13 @@ glueContext = GlueContext(sc)
 spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
-print("=== Glue Job Started ===")
-print(f"JOB_NAME: {args['JOB_NAME']}")
+logger = glueContext.get_logger()
+logger.info("=== Glue Job Started ===")
+logger.info(f"JOB_NAME: {args['JOB_NAME']}")
+# logger = glueContext.get_logger()
+logger.info("Job started")
+logger.warn("This is a warning")
+logger.error("This is an error")
  
 # Default ruleset used by all target nodes with data quality enabled
 DEFAULT_DATA_QUALITY_RULESET = """
