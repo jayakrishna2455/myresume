@@ -13,7 +13,7 @@ spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
 logger = glueContext.get_logger()
-logger.info("=== Glue Job Started test new latest ===")
+logger.info("=== Glue Job Started Now ===")
 logger.info(f"JOB_NAME: {args['JOB_NAME']}")
 # logger = glueContext.get_logger()
 logger.info("Job started")
