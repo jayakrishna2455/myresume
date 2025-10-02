@@ -24,10 +24,10 @@ jobs:
 
       - name: Upload to S3
         run: |
-          aws s3 cp HealthData_Job/HealthData_Job.py s3://my-glue-scripts/HealthData_Job.py
+          aws s3 cp HealthData_Job/HealthData_Job.py s3://glue-scripts-test2/HealthData_Job.py
 
       - name: Update Glue Job
         run: |
           aws glue update-job \
             --job-name HealthData_Job \
-            --job-update '{"Command": {"ScriptLocation": "s3://my-glue-scripts/HealthData_Job.py"}}'
+            --job-update '{"Command": {"ScriptLocation": "s3://my-glue-scripts-test2/HealthData_Job.py"}}'
