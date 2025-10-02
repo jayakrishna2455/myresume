@@ -30,4 +30,10 @@ jobs:
         run: |
           aws glue update-job \
             --job-name HealthData_Job \
-            --job-update '{"Command": {"ScriptLocation": "s3://my-glue-scripts-test2/HealthData_Job.py"}}'
+            --job-update '{
+              "Command": {
+                "Name": "glueetl",
+                "ScriptLocation": "s3://glue-scripts-test2/HealthData_Job.py",
+                "PythonVersion": "3"
+              }
+            }'
