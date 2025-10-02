@@ -12,7 +12,8 @@ glueContext = GlueContext(sc)
 spark = glueContext.spark_session
 job = Job(glueContext)
 job.init(args['JOB_NAME'], args)
-
+print("=== Glue Job Started ===")
+print(f"JOB_NAME: {args['JOB_NAME']}")
  
 # Default ruleset used by all target nodes with data quality enabled
 DEFAULT_DATA_QUALITY_RULESET = """
