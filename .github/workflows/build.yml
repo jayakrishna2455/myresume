@@ -31,9 +31,11 @@ jobs:
           aws glue update-job \
             --job-name HealthData_Job \
             --job-update '{
+              "Role": "arn:aws:iam::393937407710:role/service-role/AWSGlueServiceRole-kube8",
               "Command": {
                 "Name": "glueetl",
                 "ScriptLocation": "s3://glue-scripts-test2/HealthData_Job.py",
                 "PythonVersion": "3"
               }
             }'
+
